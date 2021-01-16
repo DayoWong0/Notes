@@ -1,0 +1,14 @@
+ls
+vi conv.c
+cat conv.c
+gcc -o conv conv.c
+./conv 114.114.114.114
+./conv 144.34.211.34
+clear
+vi v46.c
+cat v46.c
+gcc -o v46 v46.c
+gcc -o v46 v46.c -std=c99
+./v46
+./v46
+ls -al
