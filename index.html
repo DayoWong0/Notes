@@ -32,6 +32,14 @@
   <body>
     <div id="app">Please wait...</div>
     <script>
+      // 服务器地址是本地地址则不使用 cdn，否则使用 jsdelivr cdn 加载 github 的内容
+      var basePath = "https://cdn.jsdelivr.net/gh/DayoWong0/Notes/";
+      var hostname = window.location.hostname;
+      if (hostname === "localhost") {
+        basePath = "";
+      }
+      console.log("hostname is " + hostname);
+
       window.$docsify = {
         name: "Notes",
         repo: "https://github.com/DayoWong0/Notes",
@@ -45,7 +53,7 @@
           noData: "No Results",
           depth: 1,
         },
-        basePath: "https://cdn.jsdelivr.net/gh/DayoWong0/Notes/",
+        basePath: basePath,
         alias: {
           "/.*/_sidebar.md": "/_sidebar.md",
         },
