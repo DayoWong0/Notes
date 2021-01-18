@@ -1,3 +1,10 @@
+[comment]: <> (- Computer Organization)
+- Data Structure
+  
+  - 大话数据结构
+    
+    - [第1章 数据结构绪论](CSBasic/数据结构/大话数据结构/第1章数据结构绪论.md) 
+  
 - Operating System
 
   - [操作系统王道考研](CSBasic/操作系统/操作系统王道考研.md)
@@ -5,6 +12,12 @@
 - Network
 
   - [图解 HTTP ](CSBasic/计算机网络/图解HTTP.md)
+
+[comment]: <> (- Math)
+
+[comment]: <> (- English)
+
+
 
 - Android
 
@@ -40,5 +53,3 @@
     - [JavaSE](language/Java/JavaSE.md)
     - [Java 多线程](language/Java/Java多线程.md)
   - [Python](language/Python/Python.md)
-
-- Math

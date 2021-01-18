@@ -1,6 +1,6 @@
-# BLOG
+# Notes
 
-> https://DayoWong0.github.io/
+> https://DayoWong0.github.io/Notes
 
 ## Hello World
 
@@ -19,6 +19,11 @@ body::before {
 ```javascript
 /* javascript */
 console.log("Hello World");
+```
+
+```kotlin
+/* kotlin */
+println("Hello World")
 ```
 
 ```php
@@ -70,3 +75,5 @@ MsgBox("Hello,World!")
 --[[ Lua ]]
 print("hello world");
 ```
+
+
