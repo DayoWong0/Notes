@@ -1,6 +1,6 @@
 # Notes
 
-> https://DayoWong0.github.io/Notes
+> Thanks to [WindrunnerMax](https://github.com/WindrunnerMax/EveryDay/tree/master) for the docsify template
 
 ## Hello World
 
@@ -75,5 +75,3 @@ MsgBox("Hello,World!")
 --[[ Lua ]]
 print("hello world");
 ```
-
-
