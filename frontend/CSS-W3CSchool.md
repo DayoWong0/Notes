@@ -4,6 +4,44 @@
 
 - [CSS Tutorial](https://www.w3schools.com/css/default.asp)
 
+## Problem
+
+- Box Model
+  - 理解不到位，需要修改与 `margin` `padding` 时一脸懵逼
+  - how to use margin padding
+- how does them effect layout
+- float clear
+  - [CSS Layout - float and clear](#CSS Layout - float and clear)
+  - [CSS Layout - Float Examples](#CSS Layout - Float Examples)
+  - how to float and clear
+  - how does it work `.clearfix`
+- box-sizing 属性
+
+- 什么时候需要或者怎么设置 `margin` `padding`，且不会影响与其他元素的对齐
+- 
+
+## 易错章节
+
+- [CSS - The :first-child Pseudo-class](#CSS - The :first-child Pseudo-class)
+
+## Trick
+
+- 搭建 HTML 结构之前看下哪些属性会设置相同的，想好`class`
+
+- 写 CSS 顺序，由内到外？
+
+  看 w3cschool 上的例子是这样写的
+
+- 行内元素变为块级元素感觉用 `inline-block` 多些，并且一般都有设置长宽属性或者 `margin` `padding`
+
+  > 行内元素设置 `height` `width` `margin` `padding`等无效，除非转为 `inline-block` 或 `block`
+
+- clearfix
+
+  那个 div 的会合在一起
+
+## Selector
+
 ## Box Model
 
 ### Margin
@@ -383,6 +421,8 @@ the two divs!</p>
 
 [经验分享：CSS浮动(float,clear)通俗讲解 - 杨元 - 博客园](https://www.cnblogs.com/iyangyuan/archive/2013/03/27/2983813.html)
 
+[CSS - clearfix清除浮动 - 简书](https://www.jianshu.com/p/9d6a6fc3e398)
+
 > The CSS `float` property specifies how an element should float.
 >
 > The CSS `clear` property specifies what elements can float beside the cleared element and on which side.
@@ -461,3 +501,457 @@ https://www.w3schools.com/css/tryit.asp?filename=trycss_layout_clearfix2
 这一节的例子比较重要
 
 [Tryit Editor v3.6](https://www.w3schools.com/css/tryit.asp?filename=trycss_float5)
+
+#### All CSS Float Properties
+
+| Property                                                     | Description                                                  |
+| :----------------------------------------------------------- | :----------------------------------------------------------- |
+| [box-sizing](https://www.w3schools.com/cssref/css3_pr_box-sizing.asp) | Defines how the width and height of an element are calculated: should they include padding and borders, or not |
+| [clear](https://www.w3schools.com/cssref/pr_class_clear.asp) | Specifies what elements can float beside the cleared element and on which side |
+| [float](https://www.w3schools.com/cssref/pr_class_float.asp) | Specifies how an element should float                        |
+| [overflow](https://www.w3schools.com/cssref/pr_pos_overflow.asp) | Specifies what happens if content overflows an element's box |
+| [overflow-x](https://www.w3schools.com/cssref/css3_pr_overflow-x.asp) | Specifies what to do with the left/right edges of the content if it overflows the element's content area |
+| [overflow-y](https://www.w3schools.com/cssref/css3_pr_overflow-y.asp) | Specifies what to do with the top/bottom edges of the content if it overflows the element's content area |
+
+### CSS Layout - display: inline-block
+
+> Compared to `display: inline`, the major difference is that `display: inline-block` allows to set a width and height on the element.
+>
+> Also, with `display: inline-block`, the top and bottom margins/paddings are respected, but with `display: inline` they are not.
+>
+> Compared to `display: block`, the major difference is that `display: inline-block` does not add a line-break after the element, so the element can sit next to other elements.
+>
+> - `display: inline-block` ：是 `display: inline` 和 `display: block` 的部分特征结合
+>   - 是行内元素。不会换行(`inline` 的属性)
+>   - 可以设置 `width` `height` `margin` `padding` （`block` 的属性）
+
+导航栏经常使用 `ul` `li` `inline-block`
+
+### CSS Layout - Horizontal & Vertical Align
+
+这一节干货很多，用到再来查询。
+
+#### Center Align Elements
+
+> To horizontally center a block element (like <div>), use `margin: auto;`
+>
+> Setting the width of the element will prevent it from stretching out to the edges of its container.
+>
+> The element will then take up the specified width, and the remaining space will be split equally between the two margins
+>
+> - 居中块级元素，用 `margin: auto`,这样适应性好，指定 `width`没有响应式。先分给 `width`长度，剩下的 `margin`平分
+
+> **Note:** Center aligning has no effect if the `width` property is not set (or set to 100%).
+
+#### Center Align Text
+
+> To just center the text inside an element, use `text-align: center;`
+
+#### Center an Image
+
+> To center an image, set left and right margin to `auto` and make it into a `block` element:
+
+#### Left and Right Align - Using position
+
+##### Left and Right Align - Using position
+
+##### Left and Right Align - Using float
+
+#### Center Vertically - Using padding
+
+## CSS Combinators
+
+> A combinator is something that explains the relationship between the selectors
+
+> A CSS selector can contain more than one simple selector. Between the simple selectors, we can include a combinator.
+>
+> There are four different combinators in CSS:
+>
+> - descendant selector (space)：后代选择器
+> - child selector (>)
+> - adjacent sibling selector (+)：临近兄弟选择器
+> - general sibling selector (~)
+>
+> 选择器进阶，这节需要好好学，我写 CSS 写选择器容易出问题
+
+### Descendant Selector
+
+> The descendant selector matches all elements that are descendants of a specified element
+>
+> ```css
+> div p {
+>   background-color: yellow;
+> }
+> ```
+>
+> 所有的 div 下的 p 标签都被选中, 只要满足 div 下的 p，不管之前还有没有 div。在这一节中作用域最广的选择器
+
+这个标签容易被我滥用
+
+### Child Selector (>)
+
+> The child selector selects all elements that are the children of a specified element.
+>
+> 一代孩子
+
+### Adjacent Sibling Selector (+)
+
+> The adjacent sibling selector is used to select an element that is directly after another specific element.
+>
+> Sibling elements must have the same parent element, and "adjacent" means "immediately following".
+>
+> ```css
+> div + p {
+>   background-color: yellow;
+> }
+> ```
+>
+> - 兄弟选择器
+> - div后面（同级）的 第一个 p
+
+### General Sibling Selector (~)
+
+> The general sibling selector selects all elements that are siblings of a specified element.
+>
+> The following example selects all <p> elements that are siblings of <div> elements
+>
+> ```css
+> div ~ p {
+>   background-color: yellow;
+> }
+> ```
+>
+> - 普通兄弟选择器
+> - div 后面的所有同级 p 标签
+
+### All CSS Combinator Selectors
+
+| Selector                                                     | Example | Example description                                          |
+| :----------------------------------------------------------- | :------ | :----------------------------------------------------------- |
+| [*element* *element*](https://www.w3schools.com/cssref/sel_element_element.asp) | div p   | Selects all <p> elements inside <div> elements               |
+| [*element*>*element*](https://www.w3schools.com/cssref/sel_element_gt.asp) | div > p | Selects all <p> elements where the parent is a <div> element |
+| [*element*+*element*](https://www.w3schools.com/cssref/sel_element_pluss.asp) | div + p | Selects the first <p> element that are placed immediately after <div> elements |
+| [*element1*~*element2*](https://www.w3schools.com/cssref/sel_gen_sibling.asp) | p ~ ul  | Selects every <ul> element that are preceded by a <p> element |
+
+## CSS Pseudo
+
+### CSS Pseudo-classes
+
+#### What are Pseudo-classes?
+
+> A pseudo-class is used to define a special state of an element.
+>
+> For example, it can be used to:
+>
+> - Style an element when a user mouses over it
+> - Style visited and unvisited links differently
+> - Style an element when it gets focus
+>
+> 伪类
+>
+> 类似于
+>
+> ```css
+> /* unvisited link */
+> a:link {
+>   color: #FF0000;
+> }
+> 
+> /* visited link */
+> a:visited {
+>   color: #00FF00;
+> }
+> 
+> /* mouse over link */
+> a:hover {
+>   color: #FF00FF;
+> }
+> 
+> /* selected link */
+> a:active {
+>   color: #0000FF;
+> }
+> ```
+>
+> > **Note:** `a:hover` MUST come after `a:link` and `a:visited` in the CSS definition in order to be effective! `a:active` MUST come after `a:hover` in the CSS definition in order to be effective! Pseudo-class names are not case-sensitive.
+> >
+> > - `a: hover` 必须定义在 `a: link` 和 `a: visited` 之后，否则不生效。我没注意到这一点
+
+#### Pseudo-classes and CSS Classes
+
+```css
+a.highlight:hover {
+  color: #ff0000;
+}
+```
+
+#### Simple Tooltip Hover
+
+> ```css
+> p {
+>   display: none;
+>   background-color: yellow;
+>   padding: 20px;
+> }
+> 
+> div:hover p {
+>   display: block;
+> }
+> ```
+>
+> hover 改变 display 属性
+
+#### CSS - The :first-child Pseudo-class
+
+> The `:first-child` pseudo-class matches a specified element that is the first child of another element.
+>
+> 容易理解错，下面的是选择第一个 p 标签，而不是选择 p 标签下的第一个子元素(这个方法看下面一节)。
+>
+> ```html
+> <!DOCTYPE html>
+> <html>
+> <head>
+> <style>
+> p:first-child {
+>   color: blue;
+> } 
+> </style>
+> </head>
+> <body>
+> 
+> <p>This is some text.</p>/* 这个会被选择器选中变成蓝色*/
+> <p>This is some text.</p>
+> 
+> </body>
+> </html>
+> ```
+
+#### Match the first <i> element in all <p> elements
+
+> In the following example, the selector matches the first <i> element in all <p> elements:
+
+```css
+p i:first-child {
+  color: blue;
+}
+```
+
+#### Match all <i> elements in all first child <p> elements
+
+> In the following example, the selector matches all <i> elements in <p> elements that are the first child of another element
+>
+> ```css
+> p:first-child i {
+>   color: blue;
+> }
+> ```
+>
+> 理解了 [CSS - The :first-child Pseudo-class](#CSS - The :first-child Pseudo-class) 自然就懂了，注意和上面一个的区别
+
+#### CSS - The :lang Pseudo-class
+
+少用
+
+### CSS Pseudo-elements
+
+伪元素
+
+#### What are Pseudo-Elements?
+
+> A CSS pseudo-element is used to style specified parts of an element.
+>
+> For example, it can be used to:
+>
+> - Style the first letter, or line, of an element
+> - Insert content before, or after, the content of an element
+
+```css
+selector::pseudo-element {
+  property: value;
+}
+```
+
+注意是 `::` 双引号
+
+#### The ::first-line Pseudo-element
+
+> The `::first-line` pseudo-element is used to add a special style to the first line of a text.
+
+> **Notice the double colon notation -** `::first-line` versus `:first-line`
+>
+> The double colon replaced the single-colon notation for pseudo-elements in CSS3. This was an attempt from W3C to distinguish between **pseudo-classes** and **pseudo-elements**.
+>
+> The single-colon syntax was used for both pseudo-classes and pseudo-elements in CSS2 and CSS1.
+>
+> For backward compatibility, the single-colon syntax is acceptable for CSS2 and CSS1 pseudo-elements.
+>
+> - `:` vs `::`
+>
+>   css3 用 `::` 表示 Pseudo-element，css1 和 css2 用 `:`，便于区分就用 `::`
+
+#### The ::first-letter Pseudo-element
+
+> The `::first-letter` pseudo-element is used to add a special style to the first letter of a text.
+>
+> 改变第一个单词的样式
+
+#### Pseudo-elements and CSS Classes
+
+```css
+p.intro::first-letter {
+  color: #ff0000;
+  font-size: 200%;
+}
+```
+
+- 选择到 p 标签 class 为 intro 第一个单词
+
+#### Multiple Pseudo-elements
+
+```css
+p::first-letter {
+  color: #ff0000;
+  font-size: xx-large;
+}
+
+p::first-line {
+  color: #0000ff;
+  font-variant: small-caps;
+}
+```
+
+搭配使用
+
+#### CSS - The ::before Pseudo-element
+
+这题我会，我用过
+
+> The `::before` pseudo-element can be used to insert some content before the content of an element.
+>
+> 在某个元素之前(元素内部的前面)插入内容
+>
+> ```css
+> h1::before {
+>   content: url(smiley.gif);
+> }
+> ```
+>
+> 插入后
+>
+> ```html
+> <h1>::before This is a heading </h1>
+> ```
+>
+> 
+
+#### CSS - The ::after Pseudo-element
+
+> The `::after` pseudo-element can be used to insert some content after the content of an element.
+>
+> 在某个元素之后(元素内部的后面)插入内容
+>
+> ```html
+> h1::after {
+>   content: url(smiley.gif);
+> }
+> ```
+>
+> 插入后
+>
+> ```html
+> <h1>This is a heading ::after </h1>
+> ```
+
+#### CSS - The ::selection Pseudo-element
+
+> The `::selection` pseudo-element matches the portion of an element that is selected by a user.
+>
+> 用户双击或者拖动鼠标等选择了的元素，就叫做 `::selection`，根据用户动态选择在改变的
+
+## CSS Opacity / Transparency
+
+透明度
+
+### Transparent Image
+
+> The `opacity` property can take a value from 0.0 - 1.0. The lower value, the more transparent:
+>
+> - 透明度 0.0 - 1.0，数值越小越透明
+> - 默认透明度为 1，即不透明
+
+### Transparent Hover Effect
+
+> The `opacity` property is often used together with the `:hover` selector to change the opacity on mouse-over
+>
+> 配合 `hover` 选择器改变透明度
+
+### Transparent Box
+
+> When using the `opacity` property to add transparency to the background of an element, all of its child elements inherit the same transparency. This can make the text inside a fully transparent element hard to read
+>
+> 有继承效果给子元素
+
+### Transparency using RGBA
+
+> If you do not want to apply opacity to child elements, like in our example above, use **RGBA** color values
+>
+> - 无继承效果给子元素
+>
+> An RGBA color value is specified with: rgba(red, green, blue, *alpha*). The *alpha* parameter is a number between 0.0 (fully transparent) and 1.0 (fully opaque)
+>
+> - RGBA 中的 A 是 Alpha，范围也是 0.0- 1.0，1.0 为完全不透明，默认的
+
+### Text in Transparent Box
+
+## CSS Navigation Bar
+
+### Navigation Bar = List of Links
+
+## CSS Attribute Selectors
+
+## CSS [attribute] Selector
+
+```css
+a[target] {
+  background-color: yellow;
+}
+```
+
+```html
+<a href="http://www.wikipedia.org" target="_top">wikipedia.org</a>
+```
+
+### CSS [attribute="value"] Selector
+
+```css
+a[target="_blank"] {
+  background-color: yellow;
+}
+```
+
+### CSS [attribute~="value"] Selector
+
+> The `[attribute~="value"]` selector is used to select elements with an attribute value containing a specified word.
+
+### CSS [attribute|="value"] Selector
+
+> The `[attribute|="value"]` selector is used to select elements with the specified attribute starting with the specified value.
+
+### Styling Forms
+
+```css
+input[type="text"] {
+  width: 150px;
+  display: block;
+  margin-bottom: 10px;
+  background-color: yellow;
+}
+
+input[type="button"] {
+  width: 120px;
+  margin-left: 35px;
+  display: block;
+}
+```
+
+## CSS Forms
