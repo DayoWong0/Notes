@@ -25,7 +25,6 @@
 
 - Frontend
 
-  - [CSS](frontend/CSS.md)
   - [CSS-W3CSchool](frontend/CSS-W3CSchool.md)
   - [Vue 2.0](frontend/Vue2.0.md)
 
