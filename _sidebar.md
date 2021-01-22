@@ -31,13 +31,9 @@
 
 - Backend
 
-  - Spring in action
+  - [SpringInAction](backend/SpringInAction/SpringInAction.md)
 
-    - [chapter 1](backend/SpringInAction/chapter1.md)
-
-  - Spring Boot in action
-
-    - [chapter 1](backend/SpringBootInAction/chapter1.md)
+  - [SpringBootInAction](backend/SpringBootInAction/SpringBootInAction.md)
 
 - Linux
 
