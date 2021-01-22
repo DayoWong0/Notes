@@ -2,22 +2,54 @@
 
 ## reference
 
-- [CSS Tutorial](https://www.w3schools.com/css/default.asp)
+- 主要参考资料
+  - [CSS Tutorial](https://www.w3schools.com/css/default.asp)
+- 辅助参考资料
+  - [学习 Web 开发 | MDN](https://developer.mozilla.org/zh-CN/docs/Learn)
 
 ## Problem
 
 - Box Model
   - 理解不到位，需要修改与 `margin` `padding` 时一脸懵逼
   - how to use margin padding
+  
 - how does them effect layout
+
 - float clear
   - [CSS Layout - float and clear](#CSS Layout - float and clear)
+  
   - [CSS Layout - Float Examples](#CSS Layout - Float Examples)
+  
   - how to float and clear
+  
   - how does it work `.clearfix`
+  
+    [经验分享：CSS浮动(float,clear)通俗讲解 - 杨元 - 博客园](https://www.cnblogs.com/iyangyuan/archive/2013/03/27/2983813.html)
+  
+    **对于CSS*的清除浮动(clear)一定要牢记**：这个规则只能影响使用清除的元素本身，不能影响其他元素
+  
+    ```css
+    /* Clear floats after the columns */
+    .row:after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+    ```
+  
+    在类 row 下添加一个空的子元素并清除浮动（它是类 row 的最后一个子元素），在它之后的元素会排列到下一行去
+  
+    参考 [.row:after](#.row:after)
+  
 - box-sizing 属性
 
 - 什么时候需要或者怎么设置 `margin` `padding`，且不会影响与其他元素的对齐
+
+- box-sizing
+
+  [CSS Box Sizing[w3schools]](https://www.w3schools.com/css/css3_box-sizing.asp)
+
+  [CSS Box Sizing](#CSS Box Sizing)
 
 ## 易错章节
 
@@ -419,6 +451,8 @@ the two divs!</p>
 ### CSS Layout - float and clear
 
 [经验分享：CSS浮动(float,clear)通俗讲解 - 杨元 - 博客园](https://www.cnblogs.com/iyangyuan/archive/2013/03/27/2983813.html)
+
+**对于CSS*的清除浮动(clear)一定要牢记**：这个规则只能影响使用清除的元素本身，不能影响其他元素
 
 [CSS - clearfix清除浮动 - 简书](https://www.jianshu.com/p/9d6a6fc3e398)
 
@@ -954,3 +988,557 @@ input[type="button"] {
 ```
 
 ## CSS Forms
+
+这一节是登录表单的编写过程，看例子即可
+
+[CSS Forms](https://www.w3schools.com/css/css_form.asp)
+
+## CSS Counters
+
+计数器，完成得功能就像 word 文档按回车里给标题自动编号
+
+## CSS Website Layout
+
+初探响应式
+
+- 利用 `float` 搭配 `width` 
+- 利用 `margin: auto`
+- media queries
+
+### 响应式代码分析
+
+[Tryit Editor v3.6](https://www.w3schools.com/css/tryit.asp?filename=trycss_website_layout_blog)
+
+#### header
+
+```html
+<div class="header">
+    <h1>My Website</h1>
+    <p>Resize the browser window to see the effect.</p>
+</div>
+```
+
+```css
+/* Header/Blog Title */
+.header {
+  padding: 30px;
+  text-align: center;
+  background: white;
+}
+
+.header h1 {
+  font-size: 40px;
+}
+```
+
+
+
+- 文字居中对齐，设置 padding
+- 内部的 h1 和 p 是块级元素，自动换行
+
+自带响应式属性(这样算吗？)，布局始终不变
+
+居中对齐实现响应式
+
+#### topnav
+
+```html
+<div class="topnav">
+    <a href="#">Link 1</a>
+    <a href="#">Link 2</a>
+    <a href="#">Link 3</a>
+    <a href="#" style="float:right">Link 4</a>
+</div>
+```
+
+
+
+```css
+/* Style the top navigation bar */
+.topnav {
+  overflow: hidden;
+  background-color: #333;
+}
+
+/* Style the topnav links */
+.topnav a {
+  float: left;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+/* Change color on hover */
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+```
+
+媒体查询部分 CSS
+
+```css
+/* Responsive layout - when the screen is less than 400px wide, make the navigation links stack on top of each other instead of next to each other */
+@media screen and (max-width: 400px) {
+  .topnav a {
+    float: left;
+    width: 50%;
+  }
+}
+```
+
+
+
+- 导航条，div 内全是 a 标签，设置 a 标签属性，
+  - a 标签字体居中对齐
+  - Link 1 ~ Link 3 float = left，Link 4。float = right, 是行内 style，优先级最高，比媒体查询的优先级高
+  - 其实不用 媒体查询也能实现响应式不过布局样式不好
+
+float + media query 实现响应式
+
+#### footer
+
+也是居中对齐实现响应式
+
+#### row
+
+重头戏
+
+```html
+  <div class="row">
+    
+    
+    <div class="leftcolumn">
+      <div class="card">
+        <h2>TITLE HEADING</h2>
+        <h5>Title description, Dec 7, 2017</h5>
+        <div class="fakeimg" style="height:200px;">Image</div>
+        <p>Some text..</p>
+        <p>Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
+      </div>
+      <div class="card">
+        <h2>TITLE HEADING</h2>
+        <h5>Title description, Sep 2, 2017</h5>
+        <div class="fakeimg" style="height:200px;">Image</div>
+        <p>Some text..</p>
+        <p>Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
+      </div>
+    </div>
+    
+    
+    <div class="rightcolumn">
+      <div class="card">
+        <h2>About Me</h2>
+        <div class="fakeimg" style="height:100px;">Image</div>
+        <p>Some text about me in culpa qui officia deserunt mollit anim..</p>
+      </div>
+      <div class="card">
+        <h3>Popular Post</h3>
+        <div class="fakeimg"><p>Image</p></div>
+        <div class="fakeimg"><p>Image</p></div>
+        <div class="fakeimg"><p>Image</p></div>
+      </div>
+      <div class="card">
+        <h3>Follow Me</h3>
+        <p>Some text..</p>
+      </div>
+    </div>
+    
+    
+  </div>
+
+```
+
+```css
+/* Create two unequal columns that floats next to each other */
+/* Left column */
+.leftcolumn {
+  float: left;
+  width: 75%;
+}
+
+/* Right column */
+.rightcolumn {
+  float: left;
+  width: 25%;
+  background-color: #f1f1f1;
+  padding-left: 20px;
+}
+
+/* Fake image */
+.fakeimg {
+  background-color: #aaa;
+  width: 100%;
+  padding: 20px;
+}
+
+/* Add a card effect for articles */
+.card {
+  background-color: white;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+
+/* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 800px) {
+  .leftcolumn, .rightcolumn {
+    width: 100%;
+    padding: 0;
+  }
+}
+```
+
+- HTML
+
+  - div class = row
+    - leftcolumn
+      - card
+      - fakeimg
+      - card
+      - fakeimg
+    - rightcolumn
+      - card
+      - card
+      - card
+
+  关键在于要把 leftcolumn 和 rightcolum 放在同一个 div 下，
+
+  先去改变他们是左右排列还是上下排列。整体排列方式确定了，再排列它们内部的 div
+
+- CSS
+
+  主要看影响上下布局的部分
+
+  - leftcolumn
+
+  - rightcolumn
+
+    通过 float 和 width 设置浮动和它们占据的布局比例
+
+  - ###### .row:after
+
+    ```css
+    /* Clear floats after the columns */
+    .row:after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+    ```
+
+    作用是清除浮动，作用在 row:after 上的，这其实是相当于是在 类 row 下加了一个空白内容的标签，它与 leftcolumn 和 rightcolumn 同级，且位于 rightcolumn 之后（可以用 Chrome 审查元素查看此标签的位置信息）。在它上面设置 clear：both，代表它左右都不允许有浮动的内容，~~则浮动的 leftcolumn 和 rightcolumn~~，则他后面的元素（此例子是 类 footer）不能~~浮动~~平移到 rightcolum 下边（将 row:after 注释后 footer 会到 rightcolum 下面）；
+
+    （如果将 `after` 改为 `before`，效果和将 CSS 注释的相同，因为这代表它的左右不能有浮动，leftcolum 和 rightcolum 必须排列到它的下方，而因为它自己又是空内容，整体表现 leftcolum 和 rightcolum 没变化，而 footer 自动移动到 rightcolum 下面去了）
+
+    ```css
+    /* Clear floats after the columns */
+    .row:before {
+      content: "";
+      display: table;
+      clear: both;
+    }
+    ```
+
+    而 39 行的查询参数，仅仅将 `width` 设置为100%，让两个浮动的元素都变为占据宽的 100%，位于后面的`rightcolum`自然会浮动到下一行去。另外前面设置 `width` 的时候 两个位于同一行的 leftcolum 和 rightcolum 宽度百分比之和必须为 100%，否则会有问题
+
+## CSS Units
+
+### Absolute Lengths
+
+> Absolute length units are not recommended for use on screen, because screen sizes vary so much. However, they can be used if the output medium is known, such as for print layout
+
+### Relative Lengths
+
+| Unit | Description                                                  |
+| :--- | :----------------------------------------------------------- |
+| em   | Relative to the font-size of the element (2em means 2 times the size of the current font) |
+| %    | Relative to the parent element                               |
+
+> **Tip:** The em and rem units are practical in creating perfectly scalable layout!
+> \* Viewport = the browser window size. If the viewport is 50cm wide, 1vw = 0.5cm.
+
+## CSS Specificity
+
+### What is Specificity?
+
+CSS 选择器优先规则
+
+> The universal selector (*) has low specificity, while ID selectors are highly specific! 
+
+### Specificity Hierarchy
+
+> **Inline styles** - An inline style is attached directly to the element to be styled. Example: <h1 style="color: #ffffff;">.
+>
+> **IDs** - An ID is a unique identifier for the page elements, such as #navbar.
+>
+> **Classes, attributes and pseudo-classes** - This category includes .classes, [attributes] and pseudo-classes such as :hover, :focus etc.
+>
+> **Elements and pseudo-elements** - This category includes element names and pseudo-elements, such as h1, div, :before and :after.
+
+### Specificity Rules
+
+> **Equal specificity: the latest rule counts** - If the same rule is written twice into the external style sheet, then the lower rule in the style sheet is closer to the element to be styled, and therefore will be applied
+>
+> 同级就近原则（默认 css 文件导入在文档开头）
+
+> **ID selectors have a higher specificity than attribute selectors**
+
+> **A class selector beats any number of element selectors** - a class selector such as .intro beats h1, p, div
+
+## CSS Advanced
+
+### CSS Rounded Corners
+
+> 第一次看到还有椭圆形的 `border`
+
+### CSS Gradients
+
+> 渐变色
+
+### CSS Shadow Effects
+
+#### CSS Text Shadow
+
+#### CSS Box Shadow
+
+##### Cards
+
+这个感觉比较有意思
+
+### CSS Text Effects
+
+### CSS Web Fonts
+
+自定义字体
+
+`SVG`：矢量图
+
+### CSS 2D Transforms
+
+> With the CSS `transform` property you can use the following 2D transformation methods:
+>
+> - `translate()`
+> - `rotate()`
+> - `scaleX()`
+> - `scaleY()`
+> - `scale()`
+> - `skewX()`
+> - `skewY()`
+> - `skew()`
+> - `matrix()`
+
+### CSS Transitions
+
+### CSS Tooltip
+
+提示信息
+
+### CSS Styling Images
+
+#### Responsive Images
+
+### CSS The object-fit Property
+
+### CSS Buttons
+
+### CSS Variables - The var() Function
+
+- CSS 变量
+- JavaScript 修改 CSS 变量值
+- CSS Using Variables in Media Queries
+
+### CSS Box Sizing
+
+[CSS Box Sizing](https://www.w3schools.com/css/css3_box-sizing.asp)
+
+重点掌握
+
+> The CSS `box-sizing` property allows us to include the padding and border in an element's total width and height.
+
+看起来其实还是很简单的，不过很重要，否则可能遇到输入框对齐效果不过的，或者大小不一致
+
+- 全局设置 `box-sizing`
+
+  ```css
+  * {
+    box-sizing: border-box;
+  }
+  ```
+
+### CSS Media Queries
+
+> Media queries can be used to check many things, such as:
+>
+> - width and height of the viewport
+> - width and height of the device
+> - orientation (is the tablet/phone in landscape or portrait mode?)
+> - resolution
+>
+> Using media queries are a popular technique for delivering a tailored style sheet to desktops, laptops, tablets, and mobile phones (such as iPhone and Android phones).
+
+#### Media Query Syntax
+
+##### Hide Elements With Media Queries
+
+##### Change Font Size With Media Queries
+
+##### Orientation: Portrait / Landscape
+
+也是使用媒体查询判断设备是水平还是竖直放置（判断 width 和 height 的大小关系），再进行布局设置
+
+##### Min Width to Max Width
+
+- 600px 到 900px 之间生效
+
+    ```css
+    @media screen and (max-width: 900px) and (min-width: 600px) {
+      div.example {
+        font-size: 50px;
+        padding: 50px;
+        border: 8px solid black;
+        background: yellow;
+      }
+    }
+    ```
+
+- 逗号相当于 `or` 操作
+
+  - 600px - 900px 生效
+  - 1100px 以上生效
+
+  ```css
+  /* When the width is between 600px and 900px OR above 1100px - change the appearance of <div> */
+  @media screen and (max-width: 900px) and (min-width: 600px), (min-width: 1100px) {
+    div.example {
+      font-size: 50px;
+      padding: 50px;
+      border: 8px solid black;
+      background: yellow;
+    }
+  }
+  ```
+
+### CSS Flexbox
+
+> The Flexible Box Layout Module, makes it easier to design flexible responsive layout structure without using float or positioning
+
+#### Flexbox Elements
+
+1. To start using the Flexbox model, you need to first define a flex container
+
+#### CSS Flex Container
+
+这节内容太多，要用的时候再来查询
+
+> The flex container properties are:
+>
+> - [flex-direction](https://www.w3schools.com/css/css3_flexbox_container.asp#flex-direction)
+> - [flex-wrap](https://www.w3schools.com/css/css3_flexbox_container.asp#flex-wrap)
+> - [flex-flow](https://www.w3schools.com/css/css3_flexbox_container.asp#flex-flow)
+> - [justify-content](https://www.w3schools.com/css/css3_flexbox_container.asp#justify-content)
+> - [align-items](https://www.w3schools.com/css/css3_flexbox_container.asp#align-items)
+> - [align-content](https://www.w3schools.com/css/css3_flexbox_container.asp#align-content)
+
+##### The flex-direction Property
+
+> The `flex-direction` property defines in which direction the container wants to stack the flex items
+
+- column
+
+  > The *column* value stacks the flex items vertically (from top to bottom):
+  >
+  > ```css
+  > .flex-container {
+  >   display: flex;
+  >   flex-direction: column;
+  > }
+  > ```
+
+- column-reverse
+
+  > The *column-reverse* value stacks the flex items vertically (but from bottom to top)
+
+- row
+
+  > The *row* value stacks the flex items horizontally (from left to right)
+  >
+  > ```css
+  > .flex-container {
+  >   display: flex;
+  >   flex-direction: row;
+  > }
+  > ```
+
+- row-reverse
+
+  > The *row-reverse* value stacks the flex items horizontally (but from right to left)
+
+##### The flex-wrap Property
+
+> The `flex-wrap` property specifies whether the flex items should wrap or not
+>
+> - 设置为 `wrap` 空间不够会换行
+
+> The *nowrap* value specifies that the flex items will not wrap (this is default)
+>
+> - `nowrap` 会全部显示在一行
+
+> The *wrap-reverse* value specifies that the flexible items will wrap if necessary, in reverse order
+>
+> - 顺序相反的 wrap
+
+##### The flex-flow Property
+
+> The `flex-flow` property is a shorthand property for setting both the `flex-direction` and `flex-wrap` properties
+
+##### The justify-content Property
+
+> The `justify-content` property is used to align the flex items
+
+```css
+.flex-container {
+  display: flex;
+  justify-content: center;
+}
+```
+
+会居中对齐
+
+> The *flex-start* value aligns the flex items at the beginning of the container (this is default)
+
+> The *flex-end* value aligns the flex items at the end of the container
+
+> The *space-around* value displays the flex items with space before, between, and after the lines
+
+> The *space-between* value displays the flex items with space between the lines:
+
+##### The align-items Property
+
+> The `align-items` property is used to align the flex items
+
+##### Perfect Centering
+
+> In the following example we will solve a very common style problem: perfect centering
+>
+> **SOLUTION:** Set both the `justify-content` and `align-items` properties to *center,* and the flex item will be perfectly centered
+
+## CSS Responsive
+
+### Responsive Web Design - Introduction
+
+> Responsive web design makes your web page look good on all devices.
+>
+> Responsive web design uses only HTML and CSS.
+>
+> Responsive web design is not a program or a JavaScript
+
