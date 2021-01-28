@@ -3,9 +3,15 @@
 ## reference
 
 - 主要参考资料
+  
   - [CSS Tutorial](https://www.w3schools.com/css/default.asp)
 - 辅助参考资料
+  
   - [学习 Web 开发 | MDN](https://developer.mozilla.org/zh-CN/docs/Learn)
+  
+  - [WindrunnerMax](https://blog.touchczy.top/#/)
+  
+    总结得太到位了
 
 ## Problem
 
@@ -1541,4 +1547,371 @@ CSS 选择器优先规则
 > Responsive web design uses only HTML and CSS.
 >
 > Responsive web design is not a program or a JavaScript
+
+### Responsive Web Design - The Viewport
+
+#### Setting The Viewport
+
+- You should include the following <meta> viewport element in all your web pages
+
+    ```html
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    ```
+    
+    > The `width=device-width` part sets the width of the page to follow the screen-width of the device (which will vary depending on the device).
+    >
+    > The `initial-scale=1.0` part sets the initial zoom level when the page is first loaded by the browser.
+
+#### Size Content to The Viewport
+
+> if the user is forced to scroll horizontally, or zoom out, to see the whole web page it results in a poor user experience
+
+> Some additional rules to follow:
+>
+> **1. Do NOT use large fixed width elements -** For example, if an image is displayed at a width wider than the viewport it can cause the viewport to scroll horizontally. Remember to adjust this content to fit within the width of the viewport.
+>
+> **2. Do NOT let the content rely on a particular viewport width to render well** - Since screen dimensions and width in CSS pixels vary widely between devices, content should not rely on a particular viewport width to render well.
+>
+> **3. Use CSS media queries to apply different styling for small and large screens** - Setting large absolute CSS widths for page elements will cause the element to be too wide for the viewport on a smaller device. Instead, consider using relative width values, such as width: 100%. Also, be careful of using large absolute positioning values. It may cause the element to fall outside the viewport on small devices.
+
+### Responsive Web Design - Grid-View
+
+> A responsive grid-view often has 12 columns, and has a total width of 100%, and will shrink and expand as you resize the browser window.
+
+### Building a Responsive Grid-View
+
+第一种
+
+> 前面章节提到的 `float` 搭配 `width` 实现
+
+第二种
+
+> However, we want to use a responsive grid-view with 12 columns, to have more control over the web page.
+>
+> First we must calculate the percentage for one column: 100% / 12 columns = 8.33%.
+>
+> Then we make one class for each of the 12 columns, `class="col-"` and a number defining how many columns the section should span
+>
+> ```css
+> .col-1 {width: 8.33%;}
+> .col-2 {width: 16.66%;}
+> .col-3 {width: 25%;}
+> .col-4 {width: 33.33%;}
+> .col-5 {width: 41.66%;}
+> .col-6 {width: 50%;}
+> .col-7 {width: 58.33%;}
+> .col-8 {width: 66.66%;}
+> .col-9 {width: 75%;}
+> .col-10 {width: 83.33%;}
+> .col-11 {width: 91.66%;}
+> .col-12 {width: 100%;}
+> ```
+>
+> bootstrap 就是这样玩的
+
+> Each row should be wrapped in a `<div>`. The number of columns inside a row should always add up to 12
+>
+> ```html
+> <div class="row">
+>   <div class="col-3">...</div> <!-- 25% -->
+>   <div class="col-9">...</div> <!-- 75% -->
+> </div>
+> ```
+
+> The columns inside a row are all floating to the left, and are therefore taken out of the flow of the page, and other elements will be placed as if the columns do not exist. To prevent this, we will add a style that clears the flow
+>
+> 因为 float 属性导致脱离元素了文档流，需要使用 `clear: both`
+>
+> ```scss
+> .row::after {
+>   content: "";
+>   clear: both;
+>   display: table;
+> }
+> ```
+
+再加点其他样式后的完整代码
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+* {
+  box-sizing: border-box;
+}
+
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+[class*="col-"] {
+  float: left;
+  padding: 15px;
+}
+
+.col-1 {width: 8.33%;}
+.col-2 {width: 16.66%;}
+.col-3 {width: 25%;}
+.col-4 {width: 33.33%;}
+.col-5 {width: 41.66%;}
+.col-6 {width: 50%;}
+.col-7 {width: 58.33%;}
+.col-8 {width: 66.66%;}
+.col-9 {width: 75%;}
+.col-10 {width: 83.33%;}
+.col-11 {width: 91.66%;}
+.col-12 {width: 100%;}
+
+html {
+  font-family: "Lucida Sans", sans-serif;
+}
+
+.header {
+  background-color: #9933cc;
+  color: #ffffff;
+  padding: 15px;
+}
+
+.menu ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.menu li {
+  padding: 8px;
+  margin-bottom: 7px;
+  background-color: #33b5e5;
+  color: #ffffff;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+
+.menu li:hover {
+  background-color: #0099cc;
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Chania</h1>
+</div>
+
+<div class="row">
+  <div class="col-3 menu">
+    <ul>
+      <li>The Flight</li>
+      <li>The City</li>
+      <li>The Island</li>
+      <li>The Food</li>
+    </ul>
+  </div>
+
+  <div class="col-9">
+    <h1>The City</h1>
+    <p>Chania is the capital of the Chania region on the island of Crete. The city can be divided in two parts, the old town and the modern city.</p>
+    <p>Resize the browser window to see how the content respond to the resizing.</p>
+  </div>
+</div>
+
+</body>
+</html>
+```
+
+### Responsive Web Design - Media Queries
+
+#### Always Design for Mobile First
+
+> Mobile First means designing for mobile before designing for desktop or any other device (This will make the page display faster on smaller devices).
+>
+> This means that we must make some changes in our CSS
+>
+> - 移动端优先
+>
+>   写 CSS 的时候先写移动端的，再用媒体查询写平板和桌面的
+>
+>   这样手机加载网页快些
+>
+>   > 错误理解：~~移动端优先 = 对手机适应性好，对电脑适应性不好~~
+
+#### Another Breakpoint
+
+手机、平板、电脑、三个响应式布局
+
+#### Typical Device Breakpoints
+
+> There are tons of screens and devices with different heights and widths, so it is hard to create an exact breakpoint for each device. To keep things simple you could target five groups
+>
+> 屏幕大小变化多，主要写 5 种即可
+>
+> ```css
+> .example {
+>   padding: 20px;
+>   color: white;
+> }
+> /* Extra small devices (phones, 600px and down) */
+> @media only screen and (max-width: 600px) {
+>   .example {background: red;}
+> }
+> 
+> /* Small devices (portrait tablets and large phones, 600px and up) */
+> @media only screen and (min-width: 600px) {
+>   .example {background: green;}
+> }
+> 
+> /* Medium devices (landscape tablets, 768px and up) */
+> @media only screen and (min-width: 768px) {
+>   .example {background: blue;}
+> } 
+> 
+> /* Large devices (laptops/desktops, 992px and up) */
+> @media only screen and (min-width: 992px) {
+>   .example {background: orange;}
+> } 
+> 
+> /* Extra large devices (large laptops and desktops, 1200px and up) */
+> @media only screen and (min-width: 1200px) {
+>   .example {background: pink;}
+> }
+> ```
+
+#### Orientation: Portrait / Landscape
+
+旋转方向不同时的布局
+
+```css
+@media only screen and (orientation: landscape) {
+  body {
+    background-color: lightblue;
+  }
+}
+```
+
+#### Hide Elements With Media Queries
+
+这个常用
+
+```css
+/* If the screen size is 600px wide or less, hide the element */
+@media only screen and (max-width: 600px) {
+  div.example {
+    display: none;
+  }
+}
+```
+
+#### Change Font Size With Media Queries
+
+```css
+/* If the screen size is 601px or more, set the font-size of <div> to 80px */
+@media only screen and (min-width: 601px) {
+  div.example {
+    font-size: 80px;
+  }
+}
+
+/* If the screen size is 600px or less, set the font-size of <div> to 30px */
+@media only screen and (max-width: 600px) {
+  div.example {
+    font-size: 30px;
+  }
+}
+```
+
+### Responsive Web Design - Images
+
+#### Using The width Property
+
+#### Using The max-width Property
+
+#### Background Images
+
+> Background images can also respond to resizing and scaling.
+>
+> Here we will show three different methods:
+>
+> 1. If the `background-size` property is set to "contain", the background image will scale, and try to fit the content area. However, the image will keep its aspect ratio (the proportional relationship between the image's width and height)
+>
+> ```css
+> div {
+>   width: 100%;
+>   height: 400px;
+>   background-image: url('img_flowers.jpg');
+>   background-repeat: no-repeat;
+>   background-size: contain;
+>   border: 1px solid red;
+> }
+> ```
+
+#### Different Images for Different Devices
+
+> To reduce the load, or for any other reasons, you can use media queries to display different images on different devices
+
+```css
+/* For width smaller than 400px: */
+body {
+  background-image: url('img_smallflower.jpg');
+}
+
+/* For width 400px and larger: */
+@media only screen and (min-width: 400px) {
+  body {
+    background-image: url('img_flowers.jpg');
+  }
+}
+```
+
+
+
+> You can use the media query `min-device-width`, instead of `min-width`, which checks the device width, instead of the browser width. Then the image will not change when you resize the browser window
+>
+> ```css
+> /* For devices smaller than 400px: */
+> body {
+>   background-image: url('img_smallflower.jpg');
+> }
+> 
+> /* For devices 400px and larger: */
+> @media only screen and (min-device-width: 400px) {
+>   body {
+>     background-image: url('img_flowers.jpg');
+>   }
+> }
+> ```
+
+### Responsive Web Design - Videos
+
+#### Using The width Property
+
+```css
+video {
+  width: 100%;
+  height: auto;
+}
+```
+
+#### Using The max-width Property
+
+```css
+video {
+  max-width: 100%;
+  height: auto;
+}
+```
+
+### Responsive Web Design - Frameworks
+
+用框架开发太方便了
+
+### Responsive Web Design - Templates
+
+## CSS Grid
+
+### CSS Grid Layout Module
+
+> The CSS Grid Layout Module offers a grid-based layout system, with rows and columns, making it easier to design web pages without having to use floats and positioning.
 
