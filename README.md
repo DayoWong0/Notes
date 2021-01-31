@@ -1,6 +1,6 @@
 # Notes
 
-<!-- > Thanks to [WindrunnerMax](https://github.com/WindrunnerMax/EveryDay/tree/master) for the docsify template -->
+<!-- > Thanks to [ WindrunnerMax ](https://github.com/WindrunnerMax/EveryDay/tree/master)  for the docsify template -->
 
 > Thanks to <a href="https://github.com/WindrunnerMax/EveryDay/tree/master" target="_blank">WindrunnerMax</a>for the docsify template
 

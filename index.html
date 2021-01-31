@@ -35,7 +35,14 @@
       // 服务器地址是本地地址则不使用 cdn，否则使用 jsdelivr cdn 加载 github 的内容
       var basePath = "https://cdn.jsdelivr.net/gh/DayoWong0/Notes/";
       var hostname = window.location.hostname;
-      if (hostname === "localhost") {
+      if (
+        // 局域网地址
+        hostname === "localhost" ||
+        hostname === "127.0.0.1" ||
+        hostname.startsWith("192.168") ||
+        hostname.startsWith("10.") ||
+        hostname.startsWith("172.")
+      ) {
         basePath = "";
       }
       console.log("hostname is " + hostname);

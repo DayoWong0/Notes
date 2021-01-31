@@ -1,0 +1,9 @@
+{
+  "scripts": {
+    "init": "npm install",
+    "run": "docsify serve ./"
+  },
+  "dependencies": {
+    "docsify-cli": "^4.4.2"
+  }
+}
