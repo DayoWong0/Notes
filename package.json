@@ -1,7 +1,8 @@
 {
   "scripts": {
     "init": "npm install",
-    "run": "docsify serve ./"
+    "run": "docsify serve ./",
+    "push": "git add . &&git commit -m %date% &&git push"
   },
   "dependencies": {
     "docsify-cli": "^4.4.2"

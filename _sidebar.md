@@ -1,11 +1,10 @@
-[comment]: <> (- Computer Organization)
-
 - Data Structure
 
   - 大话数据结构
 
     - [第 1 章 数据结构绪论](CSBasic/数据结构/大话数据结构/第1章数据结构绪论.md)
-    - [第 2 章算法.md](CSBasic/数据结构/大话数据结构/第2章算法.md)
+    - [第 2 章算法](CSBasic/数据结构/大话数据结构/第2章算法.md)
+    - [第 3 章线性表](CSBasic/数据结构/大话数据结构/第3章线性表.md)
 
 - Operating System
 
@@ -13,7 +12,7 @@
 
 - Network
 
-  - [图解 HTTP ](CSBasic/计算机网络/图解HTTP.md)
+  - [图解 HTTP](CSBasic/计算机网络/图解HTTP.md)
 
 [comment]: <> (- Math)
 
