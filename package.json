@@ -2,7 +2,7 @@
   "scripts": {
     "init": "npm install",
     "run": "docsify serve ./",
-    "push-mac": "git add . && git commit -m `date +%Y-%m-%d-%H:%M:%S` && git push",
+    "push-mac": "git add . && git commit -m `date +%Y/%m/%d-%H:%M:%S` && git push",
     "push-win": "git add . && git commit -m %date% && git push"
   },
   "dependencies": {
