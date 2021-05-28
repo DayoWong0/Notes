@@ -97,6 +97,59 @@ firewall-cmd --add-port=8080/tcp --permanent && firewall-cmd --reload
 
 ![image-20210528104614243](img/youtube-dl/image-20210528104614243.png)
 
+#### 批量下载文件
+
+```javascript
+document.getElementsByClassName('file')
+```
+
+- https://motrix.app/
+
+  批量下载器，得到下载网站后，粘贴到这个软件中，进行批量下载
+
+- 获取批量下载地址的油猴脚本
+
+    ```javascript
+    // ==UserScript==
+    // @name         复制miniserve批量下载地址
+    // @namespace    http://tampermonkey.net/
+    // @version      0.1
+    // @description  try to take over the world!
+    // @author       You
+    // @match        此处替换成自己的服务器网址
+    // @icon         https://www.google.com/s2/favicons?domain=178.53
+    // @require      https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js
+    // @grant        none
+    // ==/UserScript==
+
+    (function() {
+        'use strict';
+
+        let files = document.getElementsByClassName('file')
+        let text = ''
+        for(let f of files){
+            text = text + f.href + '\n'
+        }
+        console.log(text)
+        let navEl = document.getElementsByTagName('nav')[0]
+        var str = '<div><p id="copyDiv" data-clipboard-text="'+ text + '">复制批量下载链接</p></div>';
+        var child = document.createElement('div');
+        child.innerHTML = str;
+        child = child.firstChild;
+        navEl.appendChild(child);
+        var clipboard  = new ClipboardJS('#copyDiv');
+        clipboard.on('success', function(e) {
+        console.info("复制成功");
+            e.clearSelection();
+        });
+        clipboard.on('error', function(e) {
+            console.info("复制失败");
+        });
+    })();
+    ```
+
+![image-20210528133508427](img/youtube-dl/image-20210528133508427.png)
+
 ## 问题 
 
 vultr的服务器，运行serve命令后，访问 ip:8080，无法响应，但是另一家的vps用同样的方法(后来发现，这个vps防火墙之前被我关闭了的)，访问成功，且可以正常下载
