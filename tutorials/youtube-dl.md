@@ -8,7 +8,7 @@
 
 略
 
-#### CentOS
+#### CentOS 7下
 
 系统自带Python2，不需要再安装Python
 
@@ -33,20 +33,22 @@ pip install --upgrade youtube-dl
 
 找到 `list=`后面的一串字符，此处为`PLRMOX8QaZK8zZ1uKjEkXnMtXJUA6Mo9xh` 这是该播放列表的id，替换下面命令中的字符串，后面的 `127.0.0.1:1080` 为本地代理的ip和端口号。可在proxy软件中查看
 
-更多的命令行参数自行查看官方文档。
+更多的命令行参数自行查看官方文档
 
 #### 使用代理（Windows本机下载）
 
+使用代理
+
 ```shell
-youtube-dl -i --proxy 127.0.0.1:1080 播放列表id 
+youtube-dl -i --proxy 127.0.0.1:1080 播放列表id或者视频网址
 ```
 
 ![image-20210528002448119](img/youtube-dl/image-20210528002448119.png)
 
-#### 不使用代理（CentOS 服务器下载）
+#### 不使用代理（CentOS国外 服务器下载）
 
 ```shell
-youtube-dl -i 播放列表id
+youtube-dl -i 播放列表id或者视频网址
 ```
 
 ### 从vps中下载到本地（Windows本地下载不需要这一步）
@@ -105,7 +107,7 @@ document.getElementsByClassName('file')
 
 - https://motrix.app/
 
-  批量下载器，得到下载网站后，粘贴到这个软件中，进行批量下载
+  可以批量下载的软件，得到下载网站列表后，粘贴到这个软件中，进行批量下载
 
 - 获取批量下载地址的油猴脚本
 
@@ -162,6 +164,116 @@ vultr 8080端口关闭，排查后发现防火墙问题，需要开发对应端�
 
 - 默认下载的 720p 视频。1080p以及以上的视频需要将音频与视频合成
 
+## 下载1080p以及以上画质的视频
+
+命令参考： [1080P youtube-dl](https://o2.airscr.com/1692/)
+
+FFmpeg安装：[如何在CentOS 7上安装和使用FFmpeg](https://www.myfreax.com/how-to-install-ffmpeg-on-centos-7/)
+
+- [How to Install FFmpeg & Add FFmpeg to Path in Windows 10 / 7 / 8](https://windowsloop.com/install-ffmpeg-windows-10/#add-ffmpeg-to-Windows-path)
+
+  我下载红色部分这版本，我不知道区别，win64版本里面最小的
+
+  ![image-20210531090518685](img/youtube-dl/image-20210531090518685.png)
+
+由于1080p以及以上画质的音视频文件分开的，所有要使用 FFmpeg 将它们合并成一个文件，
+
+先安装 FFmpeg，再使用下面的命令
+
+查看音频和视频列表
+
+```shell
+youtube-dl  -F url
+```
+
+下载，视频编号要在加号前面
+
+```shell
+youtube-dl -f 视频编号+音频编号 url
+```
+
+常用编号
+
+```shell
+youtube-dl -f 137+140 url
+```
+
+```shell
+youtube-dl -f bestvideo+bestaudio 视频地址
+```
+
+
+
+![image-20210529163221776](img/youtube-dl/image-20210529163221776.png)
+
+## 用脚本复制下载命令
+
+```javascript
+// ==UserScript==
+// @name         复制youtube-dl下载命令
+// @namespace    http://tampermonkey.net/
+// @version      0.1
+// @description  try to take over the world!
+// @author       You
+// @include *
+// @icon         https://www.google.com/s2/favicons?domain=178.53
+// @require      https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js
+// @grant        none
+// ==/UserScript==
+
+(function() {
+    'use strict';
+    let cmd = "youtube-dl&nbsp;-f&nbsp;best&nbsp;" + location.href
+    console.log(cmd)
+    var createDiv=document.createElement("div")
+    createDiv.innerHTML='<button id="copyDiv" data-clipboard-text='+ cmd + ' style="position: fixed; left: 0; bottom: 100px; width: auto; height: auto; z-index: 9999">CopydlCmd</button>'
+    document.body.appendChild(createDiv)
+    var clipboard = new ClipboardJS('#copyDiv');
+    clipboard.on('success', function(e) {
+        console.info("复制成功");
+        e.clearSelection();
+    });
+    clipboard.on('error', function(e) {
+        console.info("复制失败");
+    });
+
+})();
+```
+
+### 复制为md链接
+
+```javascript
+// ==UserScript==
+// @name         引用网址和标题为 Markdown 链接
+// @namespace    http://tampermonkey.net/
+// @version      0.1
+// @description  try to take over the world!
+// @author       https://github.com/DayoWong0/script
+// @include *
+// @require      https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js
+// @grant        none
+// ==/UserScript==
+
+(function() {
+    'use strict';
+    let cmd = "["+ document.title + "](" + location.href + ")"
+    console.log(cmd)
+    var createDiv=document.createElement("div")
+    createDiv.innerHTML='<button id="copyDiv" data-clipboard-text='+ cmd + ' style="position: fixed; left: 0; bottom: 150px; width: auto; height: auto; z-index: 99999">CopyMdLink</button>'
+    document.body.appendChild(createDiv)
+    var clipboard = new ClipboardJS('#copyDiv');
+    clipboard.on('success', function(e) {
+        console.info("复制成功");
+        e.clearSelection();
+    });
+    clipboard.on('error', function(e) {
+        console.info("复制失败");
+    });
+})();
+```
+
+
+
 ## 效果
 
 ### CentOS下
@@ -187,3 +299,7 @@ https://privaterookie.github.io/2019-05-01-miniserve-miniserve-%E7%AE%80%E5%8D%9
 [nohup命令](https://www.cnblogs.com/baby123/p/6477429.html)
 
 [centos 7.3 开放端口并对外开放](https://blog.csdn.net/qq_24232123/article/details/79781527)
+
+[1080P youtube-dl](https://o2.airscr.com/1692/)
+
+[如何在CentOS 7上安装和使用FFmpeg](https://www.myfreax.com/how-to-install-ffmpeg-on-centos-7/)
