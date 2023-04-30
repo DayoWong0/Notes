@@ -23,7 +23,10 @@ push-win-cmd
 git add . ; git commit -m %date% ; git push
 ```
 
-
+git-push
+```shell
+git push
+```
 
 ```shell
 {
