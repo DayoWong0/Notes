@@ -2,6 +2,9 @@ init
 ```shell
 npm install
 ```
+```shell
+npm i docsify-cli -g
+```
 
 run
 ```shell
